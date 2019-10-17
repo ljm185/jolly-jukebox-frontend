@@ -20,3 +20,25 @@
 .App-link {
   color: #09d3ac;
 }
+
+.belowNavBar {
+  display: flex;
+  flex-direction: row;
+}
+
+.selectionContainer {
+  /* display: grid; */
+  /* grid-template-columns: repeat(5, 1fr);
+  font-size: calc(5px + 2vmin); */
+  /* width: 1rem; */
+}
+
+.displayContainer {
+  /* display: grid; */
+  /* grid-template-columns: repeat(5, 1fr); */
+  /* width: 1rem; */
+}
+
+#song {
+  cursor: pointer;
+}
