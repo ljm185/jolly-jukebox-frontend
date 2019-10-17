@@ -4,6 +4,9 @@ import React, {Component} from 'react'
 // import ToppingContainer from './ToppingContainer'
 // import DisplayContainer from './DisplayContainer'
 import ListSong from '../components/ListSong'
+import ListGenre from '../components/ListGenre'
+import ListInstrument from '../components/ListInstrument'
+import ListPlaylist from '../components/ListPlaylist'
 
 class SelectionContainer extends Component {
 
@@ -52,6 +55,9 @@ class SelectionContainer extends Component {
     render() {
         // const posts = this.state.postList.map((post, id) => <Post key={id} {...post} onClick={this.handleClick}/>)
         const songs = this.props.songList.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
+        const genres = this.props.genreList.map((genre, id) => <ListGenre onClickGenre={this.props.onClickGenre} key={id} {...genre}/>)
+        const instruments = this.props.instrumentList.map((instrument, id) => <ListInstrument onClickInstrument={this.props.onClickInstrument} key={id} {...instrument}/>)
+        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist key={id} {...playlist}/>)
         return (
             <div className="selectionContainer">
                 {/* <h2>Flavors</h2>
@@ -61,6 +67,9 @@ class SelectionContainer extends Component {
                 <h2>Make a Scoop</h2>
                 <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
                 {songs}
+                {genres}
+                {instruments}
+                {playlists}
             </div>
         )
     }
