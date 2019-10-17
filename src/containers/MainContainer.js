@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 // import ToppingContainer from './ToppingContainer'
 import DisplayContainer from './DisplayContainer'
 import SelectionContainer from './SelectionContainer'
+import NavBar from '../components/NavBar'
 
 class MainContainer extends Component {
 
@@ -19,7 +20,9 @@ class MainContainer extends Component {
             selectedSong: null,
             selectedGenre: null,
             selectedInstrument: null,
-            selectedPlaylist: null
+            selectedPlaylist: null,
+            selectedItem: null,
+            selectedNavBarItem: null
         }
     }
 
@@ -48,6 +51,12 @@ class MainContainer extends Component {
                 playlistArray: playlistData
             }))
 
+        fetch("http://localhost:3000/playlist_songs")
+            .then(resp => resp.json())
+            .then(playlistSongData => this.setState({
+                playlistSongArray: playlistSongData
+            }))
+
         // fetch("http://localhost:3001/toppings")
         //     .then(resp => resp.json())
         //     .then(data => this.setState({
@@ -61,7 +70,9 @@ class MainContainer extends Component {
         console.log("clicked target:", e.target.innerText)
         const foundSong = this.state.songArray.find(song => song.title === e.target.innerText)
         console.log(foundSong)
-        this.setState({ selectedSong: foundSong })
+        this.setState({
+            selectedSong: foundSong
+        })
     }
 
     handleClickGenre = (e) => {
@@ -71,7 +82,10 @@ class MainContainer extends Component {
             console.log("clicked target:", e.target.innerText)
             const foundGenre = this.state.genreArray.find(genre => genre.name === e.target.innerText)
             console.log(foundGenre)
-            this.setState({ selectedGenre: foundGenre })
+            this.setState({
+                selectedGenre: foundGenre,
+                selectedItem: "genre"
+            })
         }
     }
 
@@ -82,7 +96,10 @@ class MainContainer extends Component {
             console.log("clicked target:", e.target.innerText)
             const foundInstrument = this.state.instrumentArray.find(instrument => instrument.name === e.target.innerText)
             console.log(foundInstrument)
-            this.setState({ selectedInstrument: foundInstrument })
+            this.setState({
+                selectedInstrument: foundInstrument,
+                selectedItem: "instrument"
+            })
         }
     }
 
@@ -93,7 +110,52 @@ class MainContainer extends Component {
             console.log("clicked target:", e.target.innerText)
             const foundPlaylist = this.state.playlistArray.find(playlist => playlist.name === e.target.innerText)
             console.log(foundPlaylist)
-            this.setState({ selectedPlaylist: foundPlaylist })
+            this.setState({
+                selectedPlaylist: foundPlaylist,
+                selectedItem: "playlist"
+            })
+        }
+    }
+
+    handleClickNav = (e) => {
+        // console.log("clicked target:", e.target.innerText.slice(6))
+        // this.setState({ h2Value: e.target.innerText.slice(6) })
+        if (e.target.id === "allSongsNav") {
+            console.log("clicked target:", e.target.innerText)
+            // const foundPlaylist = this.state.playlistArray.find(playlist => playlist.name === e.target.innerText)
+            // console.log(foundPlaylist)
+            this.setState({
+                // selectedPlaylist: foundPlaylist,
+                // selectedItem: "playlist"
+                selectedNavBarItem: "all songs"
+            })
+        } else if (e.target.id === "genresNav") {
+            console.log("clicked target:", e.target.innerText)
+            // const foundPlaylist = this.state.playlistArray.find(playlist => playlist.name === e.target.innerText)
+            // console.log(foundPlaylist)
+            this.setState({
+                // selectedPlaylist: foundPlaylist,
+                // selectedItem: "playlist"
+                selectedNavBarItem: "genres"
+            })
+        } else if (e.target.id === "instrumentsNav") {
+            console.log("clicked target:", e.target.innerText)
+            // const foundPlaylist = this.state.playlistArray.find(playlist => playlist.name === e.target.innerText)
+            // console.log(foundPlaylist)
+            this.setState({
+                // selectedPlaylist: foundPlaylist,
+                // selectedItem: "playlist"
+                selectedNavBarItem: "instruments"
+            })
+        } else if (e.target.id === "playlistsNav") {
+            console.log("clicked target:", e.target.innerText)
+            // const foundPlaylist = this.state.playlistArray.find(playlist => playlist.name === e.target.innerText)
+            // console.log(foundPlaylist)
+            this.setState({
+                // selectedPlaylist: foundPlaylist,
+                // selectedItem: "playlist"
+                selectedNavBarItem: "playlists"
+            })
         }
     }
 
@@ -112,9 +174,19 @@ class MainContainer extends Component {
                 <h2>Make a Scoop</h2>
                 <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
                 {/* Snooping as usual, I see! */}
-                All Songs Genres Instruments Playlists Logout
+                {/* <ul> */}
+                {/* <li>All Songs</li> */}
+                {/* </ul> */}
+                {/* All Songs
+                Genres
+                Instruments
+                Playlists
+                Recommend Me a Song!
+                My Profile
+                Logout */}
+                <NavBar handleClickNavProp={this.handleClickNav} selectedNavItemProp={this.state.selectedNavBarItem}/>
                 <div className="belowNavBar">
-                    <SelectionContainer songList={this.state.songArray} genreList={this.state.genreArray} instrumentList={this.state.instrumentArray} playlistList={this.state.playlistArray} onClickSelection={this.handleClickSong} onClickGenre={this.handleClickGenre} onClickInstrument={this.handleClickInstrument} selectedGenreProp={this.state.selectedGenre} selectedInstrumentProp={this.state.selectedInstrument}/>
+                    <SelectionContainer songList={this.state.songArray} genreList={this.state.genreArray} instrumentList={this.state.instrumentArray} playlistList={this.state.playlistArray} playlistSongList={this.state.playlistSongArray} onClickSelection={this.handleClickSong} onClickGenre={this.handleClickGenre} onClickInstrument={this.handleClickInstrument} onClickPlaylist={this.handleClickPlaylist} selectedGenreProp={this.state.selectedGenre} selectedInstrumentProp={this.state.selectedInstrument} selectedPlaylistProp={this.state.selectedPlaylist} selectedItemProp={this.state.selectedItem}  selectedNavItemProp={this.state.selectedNavBarItem}/>
                     <DisplayContainer selectedSongDisplay={this.state.selectedSong}/>
                 </div>
             </div>

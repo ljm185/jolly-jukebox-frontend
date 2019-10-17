@@ -42,3 +42,42 @@
 .listSong {
   cursor: pointer;
 }
+.listSong:hover {
+  text-decoration: underline;
+}
+
+.listGenre {
+  cursor: pointer;
+}
+
+.listGenre:hover {
+  text-decoration: underline;
+}
+
+.listInstrument {
+  cursor: pointer;
+}
+
+.listInstrument:hover {
+  text-decoration: underline;
+}
+
+.listPlaylist {
+  cursor: pointer;
+}
+
+.listPlaylist:hover {
+  text-decoration: underline;
+}
+
+.navBar {
+  text-align: left;
+}
+
+.navListItem {
+  cursor: pointer;
+}
+
+.navListItem:hover {
+  text-decoration: underline;
+}

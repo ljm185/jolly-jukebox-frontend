@@ -16,6 +16,7 @@ class SongDisplay extends Component {
                 <p>Recommended Instrument: {this.props.displayedSong.instrument.name}</p>
                 <iframe width="560" height="315" src={imageSrc} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 <p>If YouTube embed doesn't work, click <a href={this.props.displayedSong.url}>HERE</a></p>
+                <h1>Comments(?)</h1>
             </div>
             )
         } else {

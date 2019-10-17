@@ -7,6 +7,7 @@ import ListSong from '../components/ListSong'
 import ListGenre from '../components/ListGenre'
 import ListInstrument from '../components/ListInstrument'
 import ListPlaylist from '../components/ListPlaylist'
+import PlaylistForm from '../components/PlaylistForm'
 
 class SelectionContainer extends Component {
 
@@ -57,7 +58,127 @@ class SelectionContainer extends Component {
         const songs = this.props.songList.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
         const genres = this.props.genreList.map((genre, id) => <ListGenre onClickGenre={this.props.onClickGenre} key={id} {...genre}/>)
         const instruments = this.props.instrumentList.map((instrument, id) => <ListInstrument onClickInstrument={this.props.onClickInstrument} key={id} {...instrument}/>)
-        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist key={id} {...playlist}/>)
+        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist onClickPlaylist={this.props.onClickPlaylist} key={id} {...playlist}/>)
+        let filteredSongs = null
+        let filteredSongList = null
+        let title = null
+        // let selectedItem = null
+        if (this.props.selectedItemProp === "genre") {
+            filteredSongs = this.props.songList.filter(song => song.genre.name === this.props.selectedGenreProp.name)
+            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
+            const fSList = filteredSongList
+            title = this.props.selectedGenreProp.name
+            console.log(filteredSongList)
+            // this.props.selectedItemProp = null
+            // return (
+            //     <div className="selectionContainer">
+            //         <h1>{title} (Filtered Song List)</h1>
+            //         {fSList}
+            //     </div>
+            // )
+        } else if (this.props.selectedItemProp === "instrument") {
+            filteredSongs = this.props.songList.filter(song => song.instrument.name === this.props.selectedInstrumentProp.name)
+            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
+            const fSList = filteredSongList
+            title = this.props.selectedInstrumentProp.name
+            console.log(filteredSongList)
+            // this.props.selectedItemProp = null
+            // return (
+            //     <div className="selectionContainer">
+            //         <h1>{title} (Filtered Song List)</h1>
+            //         {fSList}
+            //     </div>
+            // )
+        } else if (this.props.selectedItemProp === "playlist") {
+            const filteredPlaylistSongs = this.props.playlistSongList.filter(playlistSong => playlistSong.playlist.name === this.props.selectedPlaylistProp.name)
+            filteredSongs = filteredPlaylistSongs.map(playlistSong => playlistSong.song)
+            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
+            const fSList = filteredSongList
+            title = this.props.selectedPlaylistProp.name
+            console.log(filteredSongs)
+            // this.props.selectedItemProp = null
+            // return (
+            //     <div className="selectionContainer">
+            //         <h1>{title} (Filtered Song List)</h1>
+            //         {fSList}
+            //     </div>
+            // )
+        }
+        // } else if (this.props.selectedNavItemProp === "all songs") {
+        //     return (
+        //         <div className="selectionContainer">
+        //             {/* <h2>Flavors</h2>
+        //             <FlavorContainer flavorList={this.state.flavorList}/>
+        //             <h2>Toppings</h2>
+        //             <ToppingContainer toppingList={this.state.toppingList}/>
+        //             <h2>Make a Scoop</h2>
+        //             <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
+        //             <h1>All Songs</h1>
+        //             {songs}
+        //         </div>
+        //     )
+        // } else if (this.props.selectedNavItemProp === "genres") {
+        //     return (
+        //         <div className="selectionContainer">
+        //             {/* <h2>Flavors</h2>
+        //             <FlavorContainer flavorList={this.state.flavorList}/>
+        //             <h2>Toppings</h2>
+        //             <ToppingContainer toppingList={this.state.toppingList}/>
+        //             <h2>Make a Scoop</h2>
+        //             <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
+        //             <h1>Genres</h1>
+        //             {genres}
+        //         </div>
+        //     )
+        // } else if (this.props.selectedNavItemProp === "instruments") {
+        //     return (
+        //         <div className="selectionContainer">
+        //             {/* <h2>Flavors</h2>
+        //             <FlavorContainer flavorList={this.state.flavorList}/>
+        //             <h2>Toppings</h2>
+        //             <ToppingContainer toppingList={this.state.toppingList}/>
+        //             <h2>Make a Scoop</h2>
+        //             <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
+        //             <h1>Instruments</h1>
+        //             {instruments}
+        //         </div>
+        //     )
+        // } else if (this.props.selectedNavItemProp === "playlists") {
+        //     return (
+        //         <div className="selectionContainer">
+        //             {/* <h2>Flavors</h2>
+        //             <FlavorContainer flavorList={this.state.flavorList}/>
+        //             <h2>Toppings</h2>
+        //             <ToppingContainer toppingList={this.state.toppingList}/>
+        //             <h2>Make a Scoop</h2>
+        //             <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
+        //             <h1>Playlists</h1>
+        //             <PlaylistForm />
+        //             {playlists}
+        //         </div>
+        //     )
+        // } else if (title) { // faulty
+        //     console.log(filteredSongList)
+        //     return (
+        //         <div className="selectionContainer">
+        //             <h1>{title} (Filtered Song List)</h1>
+        //             {filteredSongList}
+        //         </div>
+        //     )
+        // } else {
+        //     return (
+        //         <div className="selectionContainer">
+        //             {/* <h2>Flavors</h2>
+        //             <FlavorContainer flavorList={this.state.flavorList}/>
+        //             <h2>Toppings</h2>
+        //             <ToppingContainer toppingList={this.state.toppingList}/>
+        //             <h2>Make a Scoop</h2>
+        //             <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
+        //             <h1>All Songs</h1>
+        //             {songs}
+        //         </div>
+        //     )
+        // } 
         return (
             <div className="selectionContainer">
                 {/* <h2>Flavors</h2>
@@ -66,10 +187,17 @@ class SelectionContainer extends Component {
                 <ToppingContainer toppingList={this.state.toppingList}/>
                 <h2>Make a Scoop</h2>
                 <h5>Combine one flavor and one topping to make one cool scoop for your dream cone!</h5> */}
+                <h1>All Songs</h1>
                 {songs}
+                <h1>Genres</h1>
                 {genres}
+                <h1>Instruments</h1>
                 {instruments}
+                <h1>Playlists</h1>
+                <PlaylistForm />
                 {playlists}
+                <h1>{title} (Filtered Song List)</h1>
+                {filteredSongList}
             </div>
         )
     }

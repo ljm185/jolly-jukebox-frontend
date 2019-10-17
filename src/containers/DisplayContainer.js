@@ -52,7 +52,9 @@ class DisplayContainer extends Component {
     render() {
         // const posts = this.state.postList.map((post, id) => <Post key={id} {...post} onClick={this.handleClick}/>)
         // const songs = this.props.songList.map((song, id) => <SongDisplay key={id} {...song}/>)
-        console.log(this.props.selectedSongDisplay)
+        if (this.props.selectedSongDisplay) {
+            console.log(this.props.selectedSongDisplay)
+        }
         return (
             <div className="displayContainer">
                 {/* <h2>Flavors</h2>
