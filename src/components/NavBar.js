@@ -4,7 +4,7 @@ class NavBar extends Component {
     render() {
         return (
             <div className="navBar">
-                <ul>
+                <ul className="navList">
                     <li className="navListItem" id="allSongsNav" onClick={this.props.handleClickNavProp}>All Songs</li>
                     <li className="navListItem" id="genresNav" onClick={this.props.handleClickNavProp}>Genres</li>
                     <li className="navListItem" id="instrumentsNav" onClick={this.props.handleClickNavProp}>Instruments</li>
