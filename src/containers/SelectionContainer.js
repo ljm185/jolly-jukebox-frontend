@@ -13,7 +13,7 @@ class SelectionContainer extends Component {
         const songs = this.props.songList.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
         const genres = this.props.genreList.map((genre, id) => <ListGenre onClickGenre={this.props.onClickGenre} key={id} {...genre}/>)
         const instruments = this.props.instrumentList.map((instrument, id) => <ListInstrument onClickInstrument={this.props.onClickInstrument} key={id} {...instrument}/>)
-        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist onClickPlaylist={this.props.onClickPlaylist} key={id} {...playlist}/>)
+        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist onClickPlaylist={this.props.onClickPlaylist} key={id} {...playlist} handleDeletePlaylistClickProp={this.props.handleDeletePlaylistClickProp}/>)
         let filteredSongs = null
         let filteredSongList = null
         let title = null

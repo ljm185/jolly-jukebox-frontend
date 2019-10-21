@@ -86,30 +86,54 @@ class MainContainer extends Component {
         e.preventDefault()
         // console.log(this.state.selectedPlaylist)
         console.log(this.state.editPlaylistFormInput)
-        fetch(`http://localhost:3000/playlists/${this.state.selectedPlaylist.id}`, {
-            method: 'PATCH',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: this.state.editPlaylistFormInput
+        if (this.state.editPlaylistFormInput !== this.state.selectedPlaylist.name) {
+            console.log(`Playlist #${this.state.selectedPlaylist.id} renamed`)
+            fetch(`http://localhost:3000/playlists/${this.state.selectedPlaylist.id}`, {
+                method: 'PATCH',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: this.state.editPlaylistFormInput
+                })
             })
-          })
-          .then(response => response.json())
-          .then(renamedPlaylist => this.setState({
-            // need to rerender playlist list
-            playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== this.state.selectedPlaylist.id).concat(renamedPlaylist),
-            selectedPlaylist: renamedPlaylist,
-            editPlaylistFormInput: ""
-        }))
-        console.log(this.state.playlistArray)
+            .then(response => response.json())
+            .then(renamedPlaylist => this.setState({
+                // need to rerender playlist list
+                playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== this.state.selectedPlaylist.id).concat(renamedPlaylist),
+                selectedPlaylist: renamedPlaylist,
+                editPlaylistFormInput: ""
+            }))
+            // console.log(this.state.playlistArray)
+        } else {
+            console.log("You didn't rename shit!")
+        }
     }
 
     handleEditFormChange = (e) => {
         this.setState({
             editPlaylistFormInput: e.target.value
         })
+    }
+
+    handleDeletePlaylistClick = (e) => {
+        const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.id))
+        console.log(foundPlaylist)
+        console.log(`Playlist #${foundPlaylist.id} deleted`)
+        fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: foundPlaylist.name
+            })
+          })
+          .then(this.setState({
+            playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
+          }))
     }
 
     handleClickSong = (e) => {
@@ -222,6 +246,7 @@ class MainContainer extends Component {
                         handleEditSubmitProp={this.handleEditSubmit}
                         handleEditFormChangeProp={this.handleEditFormChange}
                         editPlaylistFormInputProp={this.state.editPlaylistFormInput}
+                        handleDeletePlaylistClickProp={this.handleDeletePlaylistClick}
                     />
                     <DisplayContainer selectedSongDisplay={this.state.selectedSong}/>
                 </div>
