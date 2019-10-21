@@ -11,7 +11,13 @@ class DisplayContainer extends Component {
             <div className="displayContainer">
                 {/* {songs} */}
                 {/* Might need id for song display */}
-                <SongDisplay displayedSong={this.props.selectedSongDisplay}/>
+                <SongDisplay
+                    displayedSong={this.props.selectedSongDisplay}
+                    handleCloseSongClickProp={this.props.handleCloseSongClickProp}
+                    playlistList={this.props.playlistList} 
+                    onClickPlaylist={this.props.onClickPlaylist}
+                    handleAddToPlaylistClickProp={this.props.handleAddToPlaylistClickProp}
+                />
             </div>
         )
     }

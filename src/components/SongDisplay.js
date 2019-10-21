@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
+import DisplayPlaylist from './DisplayPlaylist'
 
 class SongDisplay extends Component {
     render() {
         if (this.props.displayedSong) { 
             const videoSrc = `https://www.youtube.com/embed/${this.props.displayedSong.url.slice(32)}?autoplay=1`
+            const playlists = this.props.playlistList.map((playlist, id) => <DisplayPlaylist onClickPlaylist={this.props.onClickPlaylist} key={id} {...playlist} handleAddToPlaylistClickProp={this.props.handleAddToPlaylistClickProp}/>)
             return (
             <div>
                 <img className="dataImage" src={this.props.displayedSong.image} width="300" height="300" alt=""/>
@@ -14,7 +16,10 @@ class SongDisplay extends Component {
                 <p>Recommended Instrument: {this.props.displayedSong.instrument.name}</p>
                 <iframe title="musicVideo" width="560" height="315" src={videoSrc} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 <p>If YouTube embed doesn't work, click <a href={this.props.displayedSong.url}>HERE</a></p>
-                <h1>Comments(?)</h1>
+                {/* <h1>Comments(?)</h1> */}
+                <h1>Add this song to a playlist!</h1>
+                {playlists}
+                <button onClick={this.props.handleCloseSongClickProp}>Close Song</button>
             </div>
             )
         } else {

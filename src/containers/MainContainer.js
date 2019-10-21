@@ -12,6 +12,7 @@ class MainContainer extends Component {
             instrumentArray: [],
             songArray: [],
             playlistArray: [],
+            playlistSongArray: [],
             selectedSong: null,
             selectedGenre: null,
             selectedInstrument: null,
@@ -65,7 +66,7 @@ class MainContainer extends Component {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              name: this.state.playlistFormInput
+              name: this.state.playlistFormInput.trim()
             })
           })
           .then(response => response.json())
@@ -86,7 +87,7 @@ class MainContainer extends Component {
         e.preventDefault()
         // console.log(this.state.selectedPlaylist)
         console.log(this.state.editPlaylistFormInput)
-        if (this.state.editPlaylistFormInput !== this.state.selectedPlaylist.name) {
+        if (this.state.editPlaylistFormInput.trim() !== this.state.selectedPlaylist.name) {
             console.log(`Playlist #${this.state.selectedPlaylist.id} renamed`)
             fetch(`http://localhost:3000/playlists/${this.state.selectedPlaylist.id}`, {
                 method: 'PATCH',
@@ -95,7 +96,7 @@ class MainContainer extends Component {
                 'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: this.state.editPlaylistFormInput
+                    name: this.state.editPlaylistFormInput.trim()
                 })
             })
             .then(response => response.json())
@@ -107,7 +108,7 @@ class MainContainer extends Component {
             }))
             // console.log(this.state.playlistArray)
         } else {
-            console.log("You didn't rename shit!")
+            console.log("You didn't rename anything!")
         }
     }
 
@@ -188,30 +189,66 @@ class MainContainer extends Component {
             this.setState({
                 selectedNavBarItem: "all songs",
                 selectedItemType: null,
-                editPlaylistFormInput: ""
+                playlistFormInput: "",
+                editPlaylistFormInput: "",
+                selectedPlaylist: null
             })
         } else if (e.target.id === "genresNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "genres",
                 selectedItemType: null,
-                editPlaylistFormInput: ""
+                playlistFormInput: "",
+                editPlaylistFormInput: "",
+                selectedPlaylist: null
             })
         } else if (e.target.id === "instrumentsNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "instruments",
                 selectedItemType: null,
-                editPlaylistFormInput: ""
+                playlistFormInput: "",
+                editPlaylistFormInput: "",
+                selectedPlaylist: null
             })
         } else if (e.target.id === "playlistsNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "playlists",
                 selectedItemType: null,
-                editPlaylistFormInput: ""
+                playlistFormInput: "",
+                editPlaylistFormInput: "",
+                // selectedPlaylist: null
             })
         }
+    }
+
+    handleCloseSongClick = (e) => {
+        console.log("song closed")
+        this.setState({
+            selectedSong: null
+        })
+    }
+
+    handleAddToPlaylistClick = (e) => {
+        const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.className))
+        console.log(`song added to playlist #${foundPlaylist.id}`)
+        console.log(this.state.selectedSong.id, this.state.selectedSong.title)
+        fetch("http://localhost:3000/playlist_songs", {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              song_id: this.state.selectedSong.id,
+              playlist_id: foundPlaylist.id
+            })
+          })
+          .then(response => response.json())
+          .then(newPlaylistSong => this.setState({
+            playlistSongArray: [...this.state.playlistSongArray, newPlaylistSong]
+        }))
     }
 
     render() {
@@ -248,7 +285,14 @@ class MainContainer extends Component {
                         editPlaylistFormInputProp={this.state.editPlaylistFormInput}
                         handleDeletePlaylistClickProp={this.handleDeletePlaylistClick}
                     />
-                    <DisplayContainer selectedSongDisplay={this.state.selectedSong}/>
+                    <DisplayContainer
+                        selectedSongDisplay={this.state.selectedSong}
+                        handleCloseSongClickProp={this.handleCloseSongClick}
+                        playlistList={this.state.playlistArray}
+                        onClickPlaylist={this.handleClickPlaylist}
+                        handleAddToPlaylistClickProp={this.handleAddToPlaylistClick}
+                        playlistSongList={this.state.playlistSongArray}
+                    />
                 </div>
             </div>
         )
