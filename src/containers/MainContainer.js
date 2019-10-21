@@ -124,7 +124,7 @@ class MainContainer extends Component {
         console.log(`Playlist #${foundPlaylist.id} deleted`)
         const foundPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === foundPlaylist.id)
         console.log(foundPlaylistSongs)
-        // delete playlist songs if they exist
+        // checks if playlist songs exist
         if (foundPlaylistSongs.length !== 0) {
             foundPlaylistSongs.forEach(playlistSong => {
                 fetch(`http://localhost:3000/playlist_songs/${playlistSong.id}`, {
@@ -142,21 +142,35 @@ class MainContainer extends Component {
                     playlistSongArray: this.state.playlistSongArray.filter(pS => pS.id !== playlistSong.id)
                 }))
             })
-        }
-        // then delete the playlist
-        fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: foundPlaylist.name
+            // delete this freaking stuff
+            fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: foundPlaylist.name
+                })
             })
-        })
-        .then(this.setState({
-            playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
-        }))
+            .then(this.setState({
+                playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
+            }))
+        } else {
+            fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: foundPlaylist.name
+                })
+            })
+            .then(this.setState({
+                playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
+            }))
+        }
     }
 
     handleClickSong = (e) => {
