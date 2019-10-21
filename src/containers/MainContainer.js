@@ -17,7 +17,9 @@ class MainContainer extends Component {
             selectedInstrument: null,
             selectedPlaylist: null,
             selectedItemType: null,
-            selectedNavBarItem: null
+            selectedNavBarItem: null,
+            playlistFormInput: "",
+            editPlaylistFormInput: ""
         }
     }
 
@@ -51,6 +53,63 @@ class MainContainer extends Component {
             .then(playlistSongData => this.setState({
                 playlistSongArray: playlistSongData
             }))
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        console.log("Submitting", this.state.playlistFormInput)
+        fetch("http://localhost:3000/playlists", {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: this.state.playlistFormInput
+            })
+          })
+          .then(response => response.json())
+          .then(newPlaylist => this.setState({
+            playlistArray: [...this.state.playlistArray, newPlaylist],
+            playlistFormInput: ""
+        }))
+        console.log(this.state.playlistFormInput)
+    }
+
+    handleFormChange = (e) => {
+        this.setState({
+            playlistFormInput: e.target.value
+        })
+    }
+
+    handleEditSubmit = (e) => {
+        e.preventDefault()
+        // console.log(this.state.selectedPlaylist)
+        console.log(this.state.editPlaylistFormInput)
+        fetch(`http://localhost:3000/playlists/${this.state.selectedPlaylist.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: this.state.editPlaylistFormInput
+            })
+          })
+          .then(response => response.json())
+          .then(renamedPlaylist => this.setState({
+            // need to rerender playlist list
+            playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== this.state.selectedPlaylist.id).concat(renamedPlaylist),
+            selectedPlaylist: renamedPlaylist,
+            editPlaylistFormInput: ""
+        }))
+        console.log(this.state.playlistArray)
+    }
+
+    handleEditFormChange = (e) => {
+        this.setState({
+            editPlaylistFormInput: e.target.value
+        })
     }
 
     handleClickSong = (e) => {
@@ -93,7 +152,8 @@ class MainContainer extends Component {
             // console.log(foundPlaylist)
             this.setState({
                 selectedPlaylist: foundPlaylist,
-                selectedItemType: "playlist"
+                selectedItemType: "playlist",
+                playlistFormInput: ""
             })
         }
     }
@@ -103,25 +163,29 @@ class MainContainer extends Component {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "all songs",
-                selectedItemType: null
+                selectedItemType: null,
+                editPlaylistFormInput: ""
             })
         } else if (e.target.id === "genresNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "genres",
-                selectedItemType: null
+                selectedItemType: null,
+                editPlaylistFormInput: ""
             })
         } else if (e.target.id === "instrumentsNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "instruments",
-                selectedItemType: null
+                selectedItemType: null,
+                editPlaylistFormInput: ""
             })
         } else if (e.target.id === "playlistsNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "playlists",
-                selectedItemType: null
+                selectedItemType: null,
+                editPlaylistFormInput: ""
             })
         }
     }
@@ -130,7 +194,9 @@ class MainContainer extends Component {
         // console.log(this.state.genreArray)
         // console.log(this.state.instrumentArray)
         // console.log(this.state.songArray)
-        // console.log(this.state.playlistArray)
+        console.log(this.state.playlistArray)
+        console.log(this.state.playlistArray[this.state.playlistArray.length-1])
+        console.log(this.state.playlistFormInput)
         return (
             <div className="mainContainer">
                 <NavBar handleClickNavProp={this.handleClickNav} selectedNavItemProp={this.state.selectedNavBarItem}/>
@@ -150,6 +216,12 @@ class MainContainer extends Component {
                         selectedPlaylistProp={this.state.selectedPlaylist}
                         selectedItemTypeProp={this.state.selectedItemType} 
                         selectedNavItemProp={this.state.selectedNavBarItem}
+                        handleSubmitProp={this.handleSubmit}
+                        handleFormChangeProp={this.handleFormChange}
+                        playlistFormInputProp={this.state.playlistFormInput}
+                        handleEditSubmitProp={this.handleEditSubmit}
+                        handleEditFormChangeProp={this.handleEditFormChange}
+                        editPlaylistFormInputProp={this.state.editPlaylistFormInput}
                     />
                     <DisplayContainer selectedSongDisplay={this.state.selectedSong}/>
                 </div>
