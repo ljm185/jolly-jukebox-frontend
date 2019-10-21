@@ -234,21 +234,47 @@ class MainContainer extends Component {
         const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.className))
         console.log(`song added to playlist #${foundPlaylist.id}`)
         console.log(this.state.selectedSong.id, this.state.selectedSong.title)
-        fetch("http://localhost:3000/playlist_songs", {
-            method: 'POST',
+        if (!this.state.playlistSongArray.find(playlistSong => playlistSong.song.id === this.state.selectedSong.id && playlistSong.playlist.id === foundPlaylist.id)) {
+            fetch("http://localhost:3000/playlist_songs", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    song_id: this.state.selectedSong.id,
+                    playlist_id: foundPlaylist.id
+                })
+            })
+            .then(response => response.json())
+            .then(newPlaylistSong => this.setState({
+                playlistSongArray: [...this.state.playlistSongArray, newPlaylistSong]
+            }))
+        } else {
+            console.log("You already have this song on that playlist!")
+        }
+    }
+
+    handleDeleteFromPlaylistClick = (e) => {
+        const foundSong = this.state.songArray.find(song => song.id === parseInt(e.target.id))
+        const foundPlaylistSong = this.state.playlistSongArray.find(playlistSong => playlistSong.song.id === foundSong.id && playlistSong.playlist.id === this.state.selectedPlaylist.id)
+        console.log(`song deleted to playlist #${this.state.selectedPlaylist.id}: ${this.state.selectedPlaylist.name}`)
+        console.log(foundSong.id, foundSong.title)
+        console.log(foundPlaylistSong)
+        fetch(`http://localhost:3000/playlist_songs/${foundPlaylistSong.id}`, {
+            method: 'DELETE',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              song_id: this.state.selectedSong.id,
-              playlist_id: foundPlaylist.id
+              song_id: foundPlaylistSong.song.id,
+              playlist_id: foundPlaylistSong.playlist.id
             })
           })
-          .then(response => response.json())
-          .then(newPlaylistSong => this.setState({
-            playlistSongArray: [...this.state.playlistSongArray, newPlaylistSong]
-        }))
+          .then(this.setState({
+            playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.id !== foundPlaylistSong.id)
+          }))
     }
 
     render() {
@@ -284,6 +310,7 @@ class MainContainer extends Component {
                         handleEditFormChangeProp={this.handleEditFormChange}
                         editPlaylistFormInputProp={this.state.editPlaylistFormInput}
                         handleDeletePlaylistClickProp={this.handleDeletePlaylistClick}
+                        handleDeleteFromPlaylistClickProp={this.handleDeleteFromPlaylistClick}
                     />
                     <DisplayContainer
                         selectedSongDisplay={this.state.selectedSong}
@@ -292,6 +319,7 @@ class MainContainer extends Component {
                         onClickPlaylist={this.handleClickPlaylist}
                         handleAddToPlaylistClickProp={this.handleAddToPlaylistClick}
                         playlistSongList={this.state.playlistSongArray}
+                        handleDeleteFromPlaylistClickProp={this.handleDeleteFromPlaylistClick}
                     />
                 </div>
             </div>

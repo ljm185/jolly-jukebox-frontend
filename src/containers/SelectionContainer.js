@@ -10,16 +10,16 @@ class SelectionContainer extends Component {
 
     render() {
         console.log(this.props.playlistFormInputProp)
-        const songs = this.props.songList.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp}/>)
+        const songs = this.props.songList.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp} handleDeleteFromPlaylistClickProp={this.props.handleDeleteFromPlaylistClickProp}/>)
         const genres = this.props.genreList.map((genre, id) => <ListGenre onClickGenre={this.props.onClickGenre} key={id} {...genre}/>)
         const instruments = this.props.instrumentList.map((instrument, id) => <ListInstrument onClickInstrument={this.props.onClickInstrument} key={id} {...instrument}/>)
-        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist onClickPlaylist={this.props.onClickPlaylist} key={id} {...playlist} handleDeletePlaylistClickProp={this.props.handleDeletePlaylistClickProp}/>)
+        const playlists = this.props.playlistList.map((playlist, id) => <ListPlaylist onClickPlaylist={this.props.onClickPlaylist} key={id} {...playlist} handleDeletePlaylistClickProp={this.props.handleDeletePlaylistClickProp} handleDeleteFromPlaylistClickProp={this.props.handleDeleteFromPlaylistClickProp}/>)
         let filteredSongs = null
         let filteredSongList = null
         let title = null
         if (this.props.selectedItemTypeProp === "genre") {
             filteredSongs = this.props.songList.filter(song => song.genre.name === this.props.selectedGenreProp.name)
-            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song}/>)
+            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp} handleDeleteFromPlaylistClickProp={this.props.handleDeleteFromPlaylistClickProp}/>)
             title = this.props.selectedGenreProp.name
             // console.log(filteredSongList)
             return (
@@ -30,7 +30,7 @@ class SelectionContainer extends Component {
             )
         } else if (this.props.selectedItemTypeProp === "instrument") {
             filteredSongs = this.props.songList.filter(song => song.instrument.name === this.props.selectedInstrumentProp.name)
-            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp}/>)
+            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp} handleDeleteFromPlaylistClickProp={this.props.handleDeleteFromPlaylistClickProp}/>)
             title = this.props.selectedInstrumentProp.name
             // console.log(filteredSongList)
             return (
@@ -42,7 +42,7 @@ class SelectionContainer extends Component {
         } else if (this.props.selectedItemTypeProp === "playlist") {
             const filteredPlaylistSongs = this.props.playlistSongList.filter(playlistSong => playlistSong.playlist.name === this.props.selectedPlaylistProp.name)
             filteredSongs = filteredPlaylistSongs.map(playlistSong => playlistSong.song)
-            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp}/>)
+            filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp} handleDeleteFromPlaylistClickProp={this.props.handleDeleteFromPlaylistClickProp}/>)
             title = this.props.selectedPlaylistProp.name
             // console.log(filteredSongList)
             return (

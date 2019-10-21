@@ -5,7 +5,7 @@ class ListSong extends Component {
         return (
             <div>
                 <p>
-                    <strong className="listSong" onClick={this.props.onClickSong}>{this.props.title}</strong> {this.props.selectedPlaylistProp ? <button id={this.props.id} >X</button> : null}<br/>
+                    <strong className="listSong" onClick={this.props.onClickSong}>{this.props.title}</strong> {this.props.selectedPlaylistProp ? <button id={this.props.id} onClick={this.props.handleDeleteFromPlaylistClickProp}>X</button> : null}<br/>
                     {this.props.artist}
                 </p>
             </div>
