@@ -122,19 +122,41 @@ class MainContainer extends Component {
         const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.id))
         console.log(foundPlaylist)
         console.log(`Playlist #${foundPlaylist.id} deleted`)
+        const foundPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === foundPlaylist.id)
+        console.log(foundPlaylistSongs)
+        // delete playlist songs if they exist
+        if (foundPlaylistSongs.length !== 0) {
+            foundPlaylistSongs.forEach(playlistSong => {
+                fetch(`http://localhost:3000/playlist_songs/${playlistSong.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        song_id: playlistSong.song.id,
+                        playlist_id: playlistSong.playlist.id
+                    })
+                })
+                .then(this.setState({
+                    playlistSongArray: this.state.playlistSongArray.filter(pS => pS.id !== playlistSong.id)
+                }))
+            })
+        }
+        // then delete the playlist
         fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
             method: 'DELETE',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              name: foundPlaylist.name
+                name: foundPlaylist.name
             })
-          })
-          .then(this.setState({
+        })
+        .then(this.setState({
             playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
-          }))
+        }))
     }
 
     handleClickSong = (e) => {
