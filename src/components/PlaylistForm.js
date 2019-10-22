@@ -10,7 +10,7 @@ class PlaylistForm extends Component {
                         {/* <input type="text" name="name" /> What is "name"? */}
                         <input type="text" placeholder="Create new playlist..." onChange={this.props.handleFormChangeProp} value={this.props.playlistFormInputProp}/>
                     </label>
-  <                 input type="submit" value="+" />
+                    <input type="submit" value="+" />
                 </form>
             </div>
         )

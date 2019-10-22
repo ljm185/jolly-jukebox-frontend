@@ -9,7 +9,7 @@ class EditPlaylistForm extends Component {
                         {/* <input type="text" name="name" /> What is "name"? */}
                         <input type="text" placeholder="Rename playlist..." onChange={this.props.handleEditFormChangeProp} value={this.props.editPlaylistFormInputProp}/>
                     </label>
-  <                 input type="submit" value="Rename" />
+                    <input type="submit" value="Rename" />
                 </form>
             </div>
         )

@@ -3,16 +3,16 @@ import NavBar from '../components/NavBar'
 import SelectionContainer from './SelectionContainer'
 import DisplayContainer from './DisplayContainer'
 
-// The Fisher-Yates Shuffle
-function shuffleSongs(array) {
-    for(let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        const temp = array[i]
-        array[i] = array[j]
-        array[j] = temp
-    }
-    return array
-}
+// // The Fisher-Yates Shuffle
+// function shuffleSongs(array) {
+//     for(let i = array.length - 1; i > 0; i--) {
+//         const j = Math.floor(Math.random() * (i + 1))
+//         const temp = array[i]
+//         array[i] = array[j]
+//         array[j] = temp
+//     }
+//     return array
+// }
 
 class MainContainer extends Component {
 
@@ -29,9 +29,13 @@ class MainContainer extends Component {
             selectedInstrument: null,
             selectedPlaylist: null,
             selectedItemType: null,
-            selectedNavBarItem: null,
+            selectedNavBarItem: "all songs",
             playlistFormInput: "",
-            editPlaylistFormInput: ""
+            editPlaylistFormInput: "",
+            genreOptionValue: 1,
+            instrumentOptionValue: 1,
+            recFormShouldBeRendered: false,
+            recommendationExists: false
         }
     }
 
@@ -189,7 +193,9 @@ class MainContainer extends Component {
         const foundSong = this.state.songArray.find(song => song.title === e.target.innerText)
         // console.log(foundSong)
         this.setState({
-            selectedSong: foundSong
+            selectedSong: foundSong,
+            recFormShouldBeRendered: false,
+            recommendationExists: false
         })
     }
 
@@ -267,6 +273,20 @@ class MainContainer extends Component {
                 editPlaylistFormInput: "",
                 // selectedPlaylist: null
             })
+        } else if (e.target.id === "recommendSongNav") {
+            // console.log("clicked target:", e.target.innerText)
+            this.setState({
+                // selectedNavBarItem: "recommend song",
+                selectedItemType: null,
+                playlistFormInput: "",
+                editPlaylistFormInput: "",
+                selectedPlaylist: null,
+                // selectedSong: null,
+                recFormShouldBeRendered: true,
+                recommendationExists: false,
+                genreOptionValue: 1,
+                instrumentOptionValue: 1
+            })
         }
     }
 
@@ -324,6 +344,39 @@ class MainContainer extends Component {
           }))
     }
 
+    handleSubmitRecForm = (e) => {
+        e.preventDefault()
+        console.log("submitted rec form", this.state.genreOptionValue, this.state.instrumentOptionValue)
+        this.setState({
+            recommendationExists: true,
+            genreOptionValue: this.state.genreOptionValue,
+            instrumentOptionValue: this.state.instrumentOptionValue
+        })
+    }
+
+    handleChangeGenre = (e) => {
+        console.log("changed", e.target.value)
+        this.setState({
+            genreOptionValue: e.target.value
+        })
+    }
+
+    handleChangeInstrument = (e) => {
+        console.log("changed", e.target.value)
+        this.setState({
+            instrumentOptionValue: e.target.value
+        })
+    }
+
+    handleAnotherSongClick = (e) => {
+        console.log("another song")
+        this.setState({
+            recommendationExists: false,
+            genreOptionValue: 1,
+            instrumentOptionValue: 1
+        })
+    }
+
     render() {
         // console.log(this.state.genreArray)
         // console.log(this.state.instrumentArray)
@@ -331,9 +384,9 @@ class MainContainer extends Component {
         console.log(this.state.playlistArray)
         console.log(this.state.playlistArray[this.state.playlistArray.length-1])
         console.log(this.state.playlistFormInput)
-        const songArray = [...this.state.songArray]
-        const shuffledSongs = shuffleSongs(songArray)
-        console.log(shuffledSongs)
+        // const songArray = [...this.state.songArray]
+        // const shuffledSongs = shuffleSongs(songArray)
+        // console.log(shuffledSongs)
         return (
             <div className="mainContainer">
                 <NavBar handleClickNavProp={this.handleClickNav} selectedNavItemProp={this.state.selectedNavBarItem}/>
@@ -370,6 +423,19 @@ class MainContainer extends Component {
                         handleAddToPlaylistClickProp={this.handleAddToPlaylistClick}
                         playlistSongList={this.state.playlistSongArray}
                         handleDeleteFromPlaylistClickProp={this.handleDeleteFromPlaylistClick}
+                        handleClickNavProp={this.handleClickNav}
+                        selectedNavItemProp={this.state.selectedNavBarItem}
+                        recFormShouldBeRenderedProp={this.state.recFormShouldBeRendered}
+                        recommendationExistsProp={this.state.recommendationExists}
+                        songList={this.state.songArray}
+                        genreList={this.state.genreArray}
+                        instrumentList={this.state.instrumentArray}
+                        handleChangeGenreProp={this.handleChangeGenre}
+                        handleChangeInstrumentProp={this.handleChangeInstrument}
+                        handleSubmitRecFormProp={this.handleSubmitRecForm}
+                        genreOptionValueProp={this.state.genreOptionValue}
+                        instrumentOptionValueProp={this.state.instrumentOptionValue}
+                        handleAnotherSongClickProp={this.handleAnotherSongClick}
                     />
                 </div>
             </div>
