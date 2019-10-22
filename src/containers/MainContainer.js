@@ -100,28 +100,90 @@ class MainContainer extends Component {
 
     handleEditSubmit = (e) => {
         e.preventDefault()
-        // console.log(this.state.selectedPlaylist)
+        console.log(this.state.selectedPlaylist)
+        const filteredPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === this.state.selectedPlaylist.id)
+        console.log(filteredPlaylistSongs)
         console.log(this.state.editPlaylistFormInput)
         if (this.state.editPlaylistFormInput.trim() !== this.state.selectedPlaylist.name) {
             console.log(`Playlist #${this.state.selectedPlaylist.id} renamed`)
             fetch(`http://localhost:3000/playlists/${this.state.selectedPlaylist.id}`, {
                 method: 'PATCH',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     name: this.state.editPlaylistFormInput.trim()
                 })
             })
             .then(response => response.json())
-            .then(renamedPlaylist => this.setState({
-                // need to rerender playlist list
-                playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== this.state.selectedPlaylist.id).concat(renamedPlaylist),
-                selectedPlaylist: renamedPlaylist,
-                editPlaylistFormInput: ""
-            }))
+            .then(renamedPlaylist => {
+                console.log(renamedPlaylist)
+                const renamedPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === renamedPlaylist.id)
+                // 105 and 124
+                console.log(renamedPlaylistSongs)
+                console.log(this.state.playlistArray)
+                this.setState({
+                    // need to rerender playlist list
+                    playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== renamedPlaylist.id).concat(renamedPlaylist),
+                    selectedPlaylist: renamedPlaylist,
+                    editPlaylistFormInput: ""
+                })
+                console.log(this.state.playlistArray)
+                renamedPlaylistSongs.forEach(renamedPlaylistSong => {
+                    console.log(renamedPlaylist)
+                    console.log(renamedPlaylistSongs)
+                    fetch(`http://localhost:3000/playlist_songs/${renamedPlaylistSong.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            playlist_id: renamedPlaylist.id
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(renamedPS => {
+                        console.log(renamedPS)
+                        console.log(this.state.playlistSongArray)
+                        // const renamedPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === renamedPlaylist.id)
+                        // // 105 and 124
+                        // console.log(renamedPlaylistSongs)
+                        this.setState({
+                            // need to rerender playlist list
+                            playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.id !== renamedPS.id).concat(renamedPS),
+                            // selectedPlaylist: renamedPlaylist,
+                            // editPlaylistFormInput: ""
+                        })
+                        console.log(this.state.playlistSongArray)
+                    })
+                })
+            })
+            // 103 and 133
+            // console.log(this.state.selectedPlaylist)
+            // freaking filth
             // console.log(this.state.playlistArray)
+            // filteredPlaylistSongs.forEach(filteredPlaylistSong => {
+            //     fetch(`http://localhost:3000/playlists/${filteredPlaylistSong.id}`, {
+            //         method: 'PATCH',
+            //         headers: {
+            //             'Accept': 'application/json',
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({
+            //             playlist: this.state.selectedPlaylist
+            //         })
+            //     })
+            //     .then(response => response.json())
+            //     .then(updatedPlaylistSong => {
+            //         console.log(updatedPlaylistSong)
+            //         this.setState({
+            //             // need to rerender playlist list
+            //             playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id !== this.state.selectedPlaylist.id).concat(updatedPlaylistSong),
+            //         })
+            //     })
+            // })
         } else {
             console.log("You didn't rename anything!")
         }

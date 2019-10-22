@@ -40,7 +40,7 @@ class SelectionContainer extends Component {
                 </div>
             )
         } else if (this.props.selectedItemTypeProp === "playlist") {
-            const filteredPlaylistSongs = this.props.playlistSongList.filter(playlistSong => playlistSong.playlist.name === this.props.selectedPlaylistProp.name)
+            const filteredPlaylistSongs = this.props.playlistSongList.filter(playlistSong => playlistSong.playlist.id === this.props.selectedPlaylistProp.id)
             filteredSongs = filteredPlaylistSongs.map(playlistSong => playlistSong.song)
             filteredSongList = filteredSongs.map((song, id) => <ListSong onClickSong={this.props.onClickSelection} key={id} {...song} selectedPlaylistProp={this.props.selectedPlaylistProp} handleDeleteFromPlaylistClickProp={this.props.handleDeleteFromPlaylistClickProp}/>)
             title = this.props.selectedPlaylistProp.name
