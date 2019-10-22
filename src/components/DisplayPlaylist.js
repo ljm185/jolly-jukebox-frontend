@@ -6,7 +6,7 @@ class DisplayPlaylist extends Component {
             <div>
                 <p>
                     {/* <strong className="listPlaylist" onClick={this.props.onClickPlaylist}>{this.props.name}</strong> <button id={this.props.id} onClick={this.props.handleDeletePlaylistClickProp}>X</button> */}
-                    <strong className="listPlaylist" onClick={this.props.onClickPlaylist}>{this.props.name}</strong> <button className={this.props.id} onClick={this.props.handleAddToPlaylistClickProp}>Add to This Playlist!</button>
+                    <strong className="listPlaylist" onClick={this.props.onClickPlaylist}>{this.props.name}</strong> <button id={this.props.id} onClick={this.props.handleAddToPlaylistClickProp}>Add to This Playlist!</button>
                 </p>
             </div>
         )

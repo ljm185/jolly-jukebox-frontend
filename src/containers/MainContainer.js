@@ -3,6 +3,16 @@ import NavBar from '../components/NavBar'
 import SelectionContainer from './SelectionContainer'
 import DisplayContainer from './DisplayContainer'
 
+function shuffleSongs(array) {
+    for(let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        const temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+    }
+    return array
+}
+
 class MainContainer extends Component {
 
     constructor() {
@@ -267,7 +277,7 @@ class MainContainer extends Component {
     }
 
     handleAddToPlaylistClick = (e) => {
-        const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.className))
+        const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.id))
         console.log(`song added to playlist #${foundPlaylist.id}`)
         console.log(this.state.selectedSong.id, this.state.selectedSong.title)
         if (!this.state.playlistSongArray.find(playlistSong => playlistSong.song.id === this.state.selectedSong.id && playlistSong.playlist.id === foundPlaylist.id)) {
@@ -294,7 +304,7 @@ class MainContainer extends Component {
     handleDeleteFromPlaylistClick = (e) => {
         const foundSong = this.state.songArray.find(song => song.id === parseInt(e.target.id))
         const foundPlaylistSong = this.state.playlistSongArray.find(playlistSong => playlistSong.song.id === foundSong.id && playlistSong.playlist.id === this.state.selectedPlaylist.id)
-        console.log(`song deleted to playlist #${this.state.selectedPlaylist.id}: ${this.state.selectedPlaylist.name}`)
+        console.log(`song deleted from playlist #${this.state.selectedPlaylist.id}: ${this.state.selectedPlaylist.name}`)
         console.log(foundSong.id, foundSong.title)
         console.log(foundPlaylistSong)
         fetch(`http://localhost:3000/playlist_songs/${foundPlaylistSong.id}`, {
@@ -320,6 +330,9 @@ class MainContainer extends Component {
         console.log(this.state.playlistArray)
         console.log(this.state.playlistArray[this.state.playlistArray.length-1])
         console.log(this.state.playlistFormInput)
+        const songArray = [...this.state.songArray]
+        const shuffledSongs = shuffleSongs(songArray)
+        console.log(shuffledSongs)
         return (
             <div className="mainContainer">
                 <NavBar handleClickNavProp={this.handleClickNav} selectedNavItemProp={this.state.selectedNavBarItem}/>
