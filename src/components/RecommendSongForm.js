@@ -29,7 +29,7 @@ class RecommendSongForm extends Component {
             return (
                 <div>
                     <h1>Congratulations! Here's the perfect song for you.</h1>
-                    <h2>Title: {perfectSong.title}</h2>
+                    <h2>{perfectSong.title}</h2>
                     <p>Artist: {perfectSong.artist}</p>
                     <p>Album: {perfectSong.album}</p>
                     <p>Year: {perfectSong.year}</p>
