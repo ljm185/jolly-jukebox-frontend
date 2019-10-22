@@ -162,28 +162,6 @@ class MainContainer extends Component {
             })
             // 103 and 133
             // console.log(this.state.selectedPlaylist)
-            // freaking filth
-            // console.log(this.state.playlistArray)
-            // filteredPlaylistSongs.forEach(filteredPlaylistSong => {
-            //     fetch(`http://localhost:3000/playlists/${filteredPlaylistSong.id}`, {
-            //         method: 'PATCH',
-            //         headers: {
-            //             'Accept': 'application/json',
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({
-            //             playlist: this.state.selectedPlaylist
-            //         })
-            //     })
-            //     .then(response => response.json())
-            //     .then(updatedPlaylistSong => {
-            //         console.log(updatedPlaylistSong)
-            //         this.setState({
-            //             // need to rerender playlist list
-            //             playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id !== this.state.selectedPlaylist.id).concat(updatedPlaylistSong),
-            //         })
-            //     })
-            // })
         } else {
             console.log("You didn't rename anything!")
         }
