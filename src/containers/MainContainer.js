@@ -130,35 +130,39 @@ class MainContainer extends Component {
                     editPlaylistFormInput: ""
                 })
                 console.log(this.state.playlistArray)
-                renamedPlaylistSongs.forEach(renamedPlaylistSong => {
-                    console.log(renamedPlaylist)
-                    console.log(renamedPlaylistSongs)
-                    fetch(`http://localhost:3000/playlist_songs/${renamedPlaylistSong.id}`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            playlist_id: renamedPlaylist.id
+                if (renamedPlaylistSongs.length !== 0) {
+                    renamedPlaylistSongs.forEach(renamedPlaylistSong => {
+                        console.log(renamedPlaylist)
+                        console.log(renamedPlaylistSongs)
+                        fetch(`http://localhost:3000/playlist_songs/${renamedPlaylistSong.id}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                playlist_id: renamedPlaylist.id
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(renamedPS => {
+                            console.log(renamedPS)
+                            console.log(this.state.playlistSongArray)
+                            // const renamedPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === renamedPlaylist.id)
+                            // // 105 and 124
+                            // console.log(renamedPlaylistSongs)
+                            this.setState({
+                                // need to rerender playlist list
+                                playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.id !== renamedPS.id).concat(renamedPS),
+                                // selectedPlaylist: renamedPlaylist,
+                                // editPlaylistFormInput: ""
+                            })
+                            console.log(this.state.playlistSongArray)
                         })
                     })
-                    .then(response => response.json())
-                    .then(renamedPS => {
-                        console.log(renamedPS)
-                        console.log(this.state.playlistSongArray)
-                        // const renamedPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === renamedPlaylist.id)
-                        // // 105 and 124
-                        // console.log(renamedPlaylistSongs)
-                        this.setState({
-                            // need to rerender playlist list
-                            playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.id !== renamedPS.id).concat(renamedPS),
-                            // selectedPlaylist: renamedPlaylist,
-                            // editPlaylistFormInput: ""
-                        })
-                        console.log(this.state.playlistSongArray)
-                    })
-                })
+                } else {
+                    console.log("failure")
+                }
             })
             // 103 and 133
             // console.log(this.state.selectedPlaylist)
@@ -173,6 +177,7 @@ class MainContainer extends Component {
         })
     }
 
+    // busted
     handleDeletePlaylistClick = (e) => {
         const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.id))
         console.log(foundPlaylist)
@@ -197,6 +202,7 @@ class MainContainer extends Component {
                     playlistSongArray: this.state.playlistSongArray.filter(pS => pS.id !== playlistSong.id)
                 }))
             })
+            console.log(foundPlaylist)
             // delete this freaking stuff
             fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
                 method: 'DELETE',
@@ -225,6 +231,7 @@ class MainContainer extends Component {
             .then(this.setState({
                 playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
             }))
+            console.log("Nothing in it")
         }
     }
 
@@ -339,7 +346,7 @@ class MainContainer extends Component {
 
     handleAddToPlaylistClick = (e) => {
         const foundPlaylist = this.state.playlistArray.find(playlist => playlist.id === parseInt(e.target.id))
-        console.log(`song added to playlist #${foundPlaylist.id}`)
+        console.log(`song added to playlist #${foundPlaylist.id}: ${foundPlaylist.name}`)
         console.log(this.state.selectedSong.id, this.state.selectedSong.title)
         if (!this.state.playlistSongArray.find(playlistSong => playlistSong.song.id === this.state.selectedSong.id && playlistSong.playlist.id === foundPlaylist.id)) {
             fetch("http://localhost:3000/playlist_songs", {
@@ -354,9 +361,12 @@ class MainContainer extends Component {
                 })
             })
             .then(response => response.json())
-            .then(newPlaylistSong => this.setState({
-                playlistSongArray: [...this.state.playlistSongArray, newPlaylistSong]
-            }))
+            .then(newPlaylistSong => {
+                this.setState({
+                    playlistSongArray: [...this.state.playlistSongArray, newPlaylistSong]
+                })
+                console.log(newPlaylistSong)
+            })
         } else {
             console.log("You already have this song on that playlist!")
         }
