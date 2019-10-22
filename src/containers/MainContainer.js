@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar'
 import SelectionContainer from './SelectionContainer'
 import DisplayContainer from './DisplayContainer'
 
+// The Fisher-Yates Shuffle
 function shuffleSongs(array) {
     for(let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
