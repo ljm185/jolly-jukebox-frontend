@@ -130,39 +130,39 @@ class MainContainer extends Component {
                     editPlaylistFormInput: ""
                 })
                 console.log(this.state.playlistArray)
-                if (renamedPlaylistSongs.length !== 0) {
-                    renamedPlaylistSongs.forEach(renamedPlaylistSong => {
-                        console.log(renamedPlaylist)
-                        console.log(renamedPlaylistSongs)
-                        fetch(`http://localhost:3000/playlist_songs/${renamedPlaylistSong.id}`, {
-                            method: 'PATCH',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                playlist_id: renamedPlaylist.id
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(renamedPS => {
-                            console.log(renamedPS)
-                            console.log(this.state.playlistSongArray)
-                            // const renamedPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === renamedPlaylist.id)
-                            // // 105 and 124
-                            // console.log(renamedPlaylistSongs)
-                            this.setState({
-                                // need to rerender playlist list
-                                playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.id !== renamedPS.id).concat(renamedPS),
-                                // selectedPlaylist: renamedPlaylist,
-                                // editPlaylistFormInput: ""
-                            })
-                            console.log(this.state.playlistSongArray)
-                        })
-                    })
-                } else {
-                    console.log("failure")
-                }
+                // if (renamedPlaylistSongs.length !== 0) {
+                //     renamedPlaylistSongs.forEach(renamedPlaylistSong => {
+                //         console.log(renamedPlaylist)
+                //         console.log(renamedPlaylistSongs)
+                //         fetch(`http://localhost:3000/playlist_songs/${renamedPlaylistSong.id}`, {
+                //             method: 'PATCH',
+                //             headers: {
+                //                 'Accept': 'application/json',
+                //                 'Content-Type': 'application/json'
+                //             },
+                //             body: JSON.stringify({
+                //                 playlist_id: renamedPlaylist.id
+                //             })
+                //         })
+                //         .then(response => response.json())
+                //         .then(renamedPS => {
+                //             console.log(renamedPS)
+                //             console.log(this.state.playlistSongArray)
+                //             // const renamedPlaylistSongs = this.state.playlistSongArray.filter(playlistSong => playlistSong.playlist.id === renamedPlaylist.id)
+                //             // // 105 and 124
+                //             // console.log(renamedPlaylistSongs)
+                //             this.setState({
+                //                 // need to rerender playlist list
+                //                 playlistSongArray: this.state.playlistSongArray.filter(playlistSong => playlistSong.id !== renamedPS.id).concat(renamedPS),
+                //                 // selectedPlaylist: renamedPlaylist,
+                //                 // editPlaylistFormInput: ""
+                //             })
+                //             console.log(this.state.playlistSongArray)
+                //         })
+                //     })
+                // } else {
+                //     console.log("failure")
+                // }
             })
             // 103 and 133
             // console.log(this.state.selectedPlaylist)
@@ -186,37 +186,38 @@ class MainContainer extends Component {
         console.log(foundPlaylistSongs)
         // checks if playlist songs exist
         if (foundPlaylistSongs.length !== 0) {
-            foundPlaylistSongs.forEach(playlistSong => {
-                fetch(`http://localhost:3000/playlist_songs/${playlistSong.id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        song_id: playlistSong.song.id,
-                        playlist_id: playlistSong.playlist.id
-                    })
-                })
-                .then(this.setState({
-                    playlistSongArray: this.state.playlistSongArray.filter(pS => pS.id !== playlistSong.id)
-                }))
-            })
-            console.log(foundPlaylist)
-            // delete this stuff
-            fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: foundPlaylist.name
-                })
-            })
-            .then(this.setState({
-                playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
-            }))
+            // foundPlaylistSongs.forEach(playlistSong => {
+            //     fetch(`http://localhost:3000/playlist_songs/${playlistSong.id}`, {
+            //         method: 'DELETE',
+            //         headers: {
+            //             'Accept': 'application/json',
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({
+            //             song_id: playlistSong.song.id,
+            //             playlist_id: playlistSong.playlist.id
+            //         })
+            //     })
+            //     .then(this.setState({
+            //         playlistSongArray: this.state.playlistSongArray.filter(pS => pS.id !== playlistSong.id)
+            //     }))
+            // })
+            // console.log(foundPlaylist)
+            // // delete this stuff
+            // fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
+            //     method: 'DELETE',
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         name: foundPlaylist.name
+            //     })
+            // })
+            // .then(this.setState({
+            //     playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
+            // }))
+            console.log("This playlist has songs on it!")
         } else {
             fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
                 method: 'DELETE',
