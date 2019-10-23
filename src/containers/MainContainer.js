@@ -203,7 +203,7 @@ class MainContainer extends Component {
                 }))
             })
             console.log(foundPlaylist)
-            // delete this freaking stuff
+            // delete this stuff
             fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
                 method: 'DELETE',
                 headers: {
