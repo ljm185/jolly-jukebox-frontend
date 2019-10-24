@@ -22,7 +22,7 @@ class SongDisplay extends Component {
                 {/* <iframe title="musicVideo" width="560" height="315" src={videoSrc} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
                 {/* <p>If YouTube embed doesn't work, click <a href={this.props.displayedSong.url}>HERE</a></p> */}
                 {/* <h1>Comments(?)</h1> */}
-                <h1>Add this song to a playlist!</h1>
+                <h2>Add this song to a playlist!</h2>
                 {playlists}
                 {/* <button onClick={this.props.handleCloseSongClickProp}>Close Song</button> */}
             </div>
@@ -30,8 +30,8 @@ class SongDisplay extends Component {
         } else {
             return (
                 <div>
-                    <h1>Welcome to Jolly Jukebox!!!!!</h1>
-                    <h3>Just click on a song to the left of this message and have yourself a ball!</h3>
+                    <h1>Welcome to Jolly Jukebox, the jukebox that makes YOU the life of the party!</h1>
+                    <h3>Just pick a song you like and have yourself a ball!</h3>
                 </div>
             )
         }

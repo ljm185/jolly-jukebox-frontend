@@ -28,16 +28,32 @@ button {
   border: 1px solid white;
 }
 
+button:hover {
+  background-color: rgb(250, 99, 230);
+}
+
 input[type=submit] {
   background-color: purple;
   color: white;
   border: 1px solid white;
 }
 
+input[type=submit]:hover {
+  background-color: rgb(250, 99, 230);
+}
+
 select {
   background-color: purple;
   color: white;
   border: 1px solid white;
+}
+
+select:hover {
+  color: rgb(250, 99, 230);
+}
+
+a:hover {
+  color: rgb(250, 99, 230);
 }
 
 /* option {
@@ -96,6 +112,7 @@ input[type=text] {
 }
 .listSong:hover {
   text-decoration: underline;
+  color: rgb(250, 99, 230);
 }
 
 .listGenre {
@@ -104,6 +121,7 @@ input[type=text] {
 
 .listGenre:hover {
   text-decoration: underline;
+  color: rgb(250, 99, 230);
 }
 
 .listInstrument {
@@ -112,6 +130,7 @@ input[type=text] {
 
 .listInstrument:hover {
   text-decoration: underline;
+  color: rgb(250, 99, 230);
 }
 
 .listPlaylist {
@@ -120,6 +139,7 @@ input[type=text] {
 
 .listPlaylist:hover {
   text-decoration: underline;
+  color: rgb(250, 99, 230);
 }
 
 /* .playlistForm {
@@ -159,6 +179,7 @@ input[type=text] {
 
 .navListItem:hover {
   text-decoration: underline;
+  color: rgb(250, 99, 230);
 }
 
 .closeButton {

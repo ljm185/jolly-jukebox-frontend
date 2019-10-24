@@ -35,7 +35,7 @@ class RecommendSongForm extends Component {
                     <p>Year: {perfectSong.year}</p>
                     <p>Genre: {perfectSong.genre.name}</p>
                     <p>Recommended Instrument: {perfectSong.instrument.name}</p>
-                    <button onClick={this.props.handleAnotherSongClickProp}>Recommend me another song!</button>
+                    <button onClick={this.props.handleAnotherSongClickProp}>Recommend Me Another Song!</button>
                 </div>
             )
         } else {
@@ -44,7 +44,7 @@ class RecommendSongForm extends Component {
             return (
                 <div>
                     <form onSubmit={this.props.handleSubmitRecFormProp}>
-                        <h1>Recommend me a song!</h1>
+                        <h1>Recommend Me a Song!</h1>
                         <p>What's your favorite genre? <select onChange={this.props.handleChangeGenreProp} defaultValue="1">
                             {/* <option selected>Select One</option> */}
                             {genreOptions}
@@ -53,7 +53,7 @@ class RecommendSongForm extends Component {
                             {/* <option selected>Select One</option> */}
                             {instrumentOptions}
                         </select></p>
-                        <input type="submit" value="Recommend me a song!" />
+                        <input type="submit" value="Recommend Me a Song!" />
                     </form>
                 </div>
             )
