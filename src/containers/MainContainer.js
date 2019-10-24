@@ -218,6 +218,7 @@ class MainContainer extends Component {
             //     playlistArray: this.state.playlistArray.filter(playlist => playlist.id !== foundPlaylist.id)
             // }))
             console.log("This playlist has songs on it!")
+            alert("You can't delete this playlist! It has songs on it!")
         } else {
             fetch(`http://localhost:3000/playlists/${foundPlaylist.id}`, {
                 method: 'DELETE',
