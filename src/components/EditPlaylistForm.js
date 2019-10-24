@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 class EditPlaylistForm extends Component {
     render() {
         return (
-            <div>
+            <div className="playlistForm">
                 <form onSubmit={this.props.handleEditSubmitProp}>
                     <label>
                         {/* <input type="text" name="name" /> What is "name"? */}

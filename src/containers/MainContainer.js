@@ -292,7 +292,9 @@ class MainContainer extends Component {
                 selectedItemType: null,
                 playlistFormInput: "",
                 editPlaylistFormInput: "",
-                selectedPlaylist: null
+                selectedPlaylist: null,
+                recFormShouldBeRendered: false,
+                recommendationExists: false
             })
         } else if (e.target.id === "genresNav") {
             // console.log("clicked target:", e.target.innerText)
@@ -301,7 +303,9 @@ class MainContainer extends Component {
                 selectedItemType: null,
                 playlistFormInput: "",
                 editPlaylistFormInput: "",
-                selectedPlaylist: null
+                selectedPlaylist: null,
+                recFormShouldBeRendered: false,
+                recommendationExists: false
             })
         } else if (e.target.id === "instrumentsNav") {
             // console.log("clicked target:", e.target.innerText)
@@ -310,25 +314,30 @@ class MainContainer extends Component {
                 selectedItemType: null,
                 playlistFormInput: "",
                 editPlaylistFormInput: "",
-                selectedPlaylist: null
+                selectedPlaylist: null,
+                recFormShouldBeRendered: false,
+                recommendationExists: false
             })
         } else if (e.target.id === "playlistsNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 selectedNavBarItem: "playlists",
                 selectedItemType: null,
+                selectedPlaylist: null,
                 playlistFormInput: "",
                 editPlaylistFormInput: "",
+                recFormShouldBeRendered: false,
+                recommendationExists: false
                 // selectedPlaylist: null
             })
         } else if (e.target.id === "recommendSongNav") {
             // console.log("clicked target:", e.target.innerText)
             this.setState({
                 // selectedNavBarItem: "recommend song",
-                selectedItemType: null,
+                // selectedItemType: null,
                 playlistFormInput: "",
                 editPlaylistFormInput: "",
-                selectedPlaylist: null,
+                // selectedPlaylist: null,
                 // selectedSong: null,
                 recFormShouldBeRendered: true,
                 recommendationExists: false,

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: purple;
 }
 
 .App-logo {
@@ -21,6 +22,10 @@
   color: #09d3ac;
 }
 
+/* button {
+  background-color: purple;
+} */
+
 .belowNavBar {
   display: flex;
   flex-direction: row;
@@ -31,12 +36,35 @@
   /* grid-template-columns: repeat(5, 1fr);
   font-size: calc(5px + 2vmin); */
   /* width: 1rem; */
+  width: 21rem;
+  height: 35rem;
+  overflow-y: auto;
+  background-color: rgb(250, 99, 230);
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  border: 8px solid purple;
+  /* box-sizing: border-box;
+  width: 100%;
+  border: solid #5B6DCD 10px;
+  padding: 5px; */
 }
 
 .displayContainer {
   /* display: grid; */
   /* grid-template-columns: repeat(5, 1fr); */
   /* width: 1rem; */
+  width: 69rem;
+  height: 35rem;
+  overflow-y: auto;
+  background-color: rgb(250, 99, 230);
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 8px solid purple;
+}
+
+.listItem {
+  max-height: 4rem;
+  /* border-top: 4px solid purple; */
 }
 
 .listSong {
@@ -70,14 +98,41 @@
   text-decoration: underline;
 }
 
+.playlistForm {
+  /* border-top: 4px solid purple; */
+}
+
 .navBar {
-  text-align: left;
+  display: table;
+	margin: 0 auto;
+}
+
+.navList {
+  list-style-type: none;
+  /* margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333; */
+  display: flex;
+  flex-direction: row;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .navListItem {
   cursor: pointer;
+  /* float: left; */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: inline-block;
 }
 
 .navListItem:hover {
   text-decoration: underline;
+}
+
+.closeButton {
+  /* text-align: right; */
+  float: right;
+  margin-right: 1rem;
 }

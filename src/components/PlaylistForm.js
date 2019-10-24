@@ -4,7 +4,7 @@ class PlaylistForm extends Component {
     render() {
         console.log(this.props.playlistFormInputProp)
         return (
-            <div>
+            <div className="playlistForm">
                 <form onSubmit={this.props.handleSubmitProp}>
                     <label>
                         {/* <input type="text" name="name" /> What is "name"? */}
