@@ -61,7 +61,7 @@ input[type=text] {
   width: 21rem;
   height: 34rem;
   overflow-y: auto;
-  background-color: rgb(250, 99, 230);
+  background-color: pink;
   margin-left: 1rem;
   margin-bottom: 1rem;
   border: 8px solid purple;
@@ -79,7 +79,7 @@ input[type=text] {
   width: 69rem;
   height: 34rem;
   overflow-y: auto;
-  background-color: rgb(250, 99, 230);
+  background-color: pink;
   margin-left: 1rem;
   margin-right: 1rem;
   border: 8px solid purple;
@@ -129,7 +129,7 @@ input[type=text] {
 .navBar {
   display: table;
   margin: 0 auto;
-  background-color: rgb(250, 99, 230);
+  background-color: pink;
   margin-top: 1rem;
   margin-bottom: 1rem;
   border: 8px solid purple;
