@@ -5,7 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: pink;
+  /* background-color: pink; */
+  background-image: url("https://wallpaperaccess.com/full/427935.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 code {
