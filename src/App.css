@@ -49,7 +49,7 @@ input[type=text] {
   font-size: calc(5px + 2vmin); */
   /* width: 1rem; */
   width: 21rem;
-  height: 35rem;
+  height: 34rem;
   overflow-y: auto;
   background-color: rgb(250, 99, 230);
   margin-left: 1rem;
@@ -66,7 +66,7 @@ input[type=text] {
   /* grid-template-columns: repeat(5, 1fr); */
   /* width: 1rem; */
   width: 69rem;
-  height: 35rem;
+  height: 34rem;
   overflow-y: auto;
   background-color: rgb(250, 99, 230);
   margin-left: 1rem;
@@ -116,7 +116,11 @@ input[type=text] {
 
 .navBar {
   display: table;
-	margin: 0 auto;
+  margin: 0 auto;
+  background-color: rgb(250, 99, 230);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 8px solid purple;
 }
 
 .navList {
@@ -127,7 +131,8 @@ input[type=text] {
   background-color: #333; */
   display: flex;
   flex-direction: row;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  color: purple;
   text-align: center;
 }
 
