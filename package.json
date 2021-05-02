@@ -18,7 +18,8 @@
     "react-scripts": "3.2.0",
     "reactjs-popup": "^1.5.0",
     "serialize-javascript": "^3.1.0",
-    "yargs-parser": ">=13.1.2"
+    "yargs-parser": ">=13.1.2",
+    "is-svg": ">=4.2.2"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
