@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "browserslist": ">=4.16.5",
     "dot-prop": ">=4.2.1",
     "elliptic": ">=6.5.4",
     "handlebars": ">=4.7.7",
