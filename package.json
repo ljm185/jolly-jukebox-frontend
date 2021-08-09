@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "browserslist": ">=4.16.5",
+    "color-string": ">=1.5.5",
     "dns-packet": ">=1.3.2",
     "dot-prop": ">=4.2.1",
     "elliptic": ">=6.5.4",
