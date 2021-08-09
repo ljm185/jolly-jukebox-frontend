@@ -14,6 +14,7 @@
     "is-svg": ">=4.2.2",
     "kind-of": ">=6.0.3",
     "lodash": ">=4.17.21",
+    "merge-deep": ">=3.0.3",
     "minimist": ">=1.2.2",
     "node-forge": ">=0.10.0",
     "node-notifier": ">=8.0.1",
