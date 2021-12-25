@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ansi-html-community": "^0.0.8",
     "ansi-regex": ">=5.0.1",
     "browserslist": ">=4.16.5",
     "color-string": ">=1.5.5",
