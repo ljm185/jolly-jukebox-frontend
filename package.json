@@ -21,6 +21,7 @@
     "lodash": ">=4.17.21",
     "merge-deep": ">=3.0.3",
     "minimist": ">=1.2.2",
+    "nanoid": ">=3.1.31",
     "node-forge": ">=1.0.0",
     "node-notifier": ">=8.0.1",
     "nth-check": ">=2.0.1",
@@ -40,8 +41,7 @@
     "url-parse": ">=1.5.0",
     "ws": ">=5.2.3",
     "y18n": ">=4.0.1",
-    "yargs-parser": ">=13.1.2",
-    "nanoid": ">=3.1.31"
+    "yargs-parser": ">=13.1.2"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
