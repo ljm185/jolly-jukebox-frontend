@@ -10,7 +10,7 @@
     "color-string": ">=1.5.5",
     "dns-packet": ">=5.4.0",
     "dot-prop": ">=4.2.1",
-    "elliptic": ">=6.6.0",
+    "elliptic": ">=6.6.1",
     "follow-redirects": ">=1.15.6",
     "glob-parent": ">=5.1.2",
     "handlebars": ">=4.7.7",
